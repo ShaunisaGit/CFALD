@@ -1,0 +1,22 @@
+Why CFALD Works
+
+CFALD works because a Bayer CFA does not contain four independent spatial samples — it contains a single spatial sample measured through four colour filters.
+In a 2×2 RGGB block, the photons landing on all four pixels come from the same point-spread function and the same tiny region of sky. Spatially, the four samples are redundant; spectrally, they differ only in filter response.
+
+Conventional RGB workflows demosaic these four values, interpolate missing colour information, and treat the reconstructed RGB pixels as separate spatial entities. This creates interpolation noise, reduces the effective signal-to-noise ratio, and obscures fine structure.
+
+CFALD avoids this entirely by extracting luminance directly from the raw CFA values before any demosaicing. The four CFA measurements are averaged to produce a true luminance value representing the single underlying spatial measurement. This luminance is written back into the corresponding 2×2 block, preserving the exact CFA sampling geometry.
+
+Because CFALD maintains the original pixel positions, the luminance frames retain the correct spatial sampling pattern used by the sensor. When combined with dithering, drizzle reconstruction can recover subpixel structure from the offsets between frames, producing a luminance image with higher SNR and finer microdetail than any demosaiced RGB luminance can offer.
+
+In short:
+
+Nothing is blurred: the CFA block contains one spatial sample.
+
+Nothing is lost: all photons contribute to luminance.
+
+Nothing is interpolated: CFALD avoids demosaic noise.
+
+Drizzle recovers detail: because geometry and dithers are preserved.
+
+This combination yields a luminance channel that consistently outperforms conventional RGB-L in sharpness, smoothness, and depth, producing results comparable to a mono sensor at the same resolution.
