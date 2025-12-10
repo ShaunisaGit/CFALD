@@ -54,7 +54,7 @@ CFALD has demonstrated significant improvements on real targets including **M81*
 2. **Export CFA FITS**  
 3. **Run the CFALD Python script** (coming soon)  
 4. **Stack luminance frames**  
-5. **Apply drizzle reconstruction**  
+5. **Register and Stack RGB and CFALD seperately, CFALD then has Drizzle reconstruction**  
 6. **Combine CFALD-L with RGB** in your processing workflow  
 
 ---
