@@ -12,6 +12,40 @@ This provides:
 CFALD has demonstrated significant improvements on real targets including **M81**, the **North America Nebula**, and **Orion**.
 
 ---
+**The Key Principle Behind CFALD:**
+
+All Four Bayer Pixels Measure the Same Point in Space**
+
+A 2×2 Bayer block (RGGB) does not represent four different spatial locations.
+
+It represents:
+
+One spatial location measured four times, each through a different colour filter (R, G1, G2, B).
+
+This is the part nobody talks about in astrophotography, but it is fundamental.
+
+The CFA does NOT sample the sky at four different offsets.
+The CFA samples the same patch of sky with four filtered measurements.
+
+So when CFALD creates luminance by averaging R + G1 + G2 + B:
+
+✔ No spatial detail is lost
+✔ Only colour separation is discarded
+✔ You get 4× the photons for that location
+✔ SNR increases dramatically
+✔ Drizzle can reconstruct the original grid perfectly
+
+This is why CFALD-L:
+
+is sharper than RGB-L
+
+has higher SNR
+
+reveals faint structures RGB can’t
+
+drizzles back to full resolution
+
+behaves like a mono camera in luminance mode
 
 ## **Status**
 
