@@ -114,7 +114,7 @@ MIT License (recommended for community use and research adoption)
 
 ## **Acknowledgements**
 
-Method developed by **Shaun Slade (shaunisagit)** with AI-assisted technical support for documentation and formulation.
+Method developed by **Shaun Slade (shaunisagit) December 10 2025 ** with AI-assisted technical support for documentation and formulation.
 
 
 
