@@ -1,22 +1,27 @@
 Why CFALD Works
 
-CFALD works because a Bayer CFA does not contain four independent spatial samples — it contains a single spatial sample measured through four colour filters.
-In a 2×2 RGGB block, the photons landing on all four pixels come from the same point-spread function and the same tiny region of sky. Spatially, the four samples are redundant; spectrally, they differ only in filter response.
+Many DSLR astrophotographers are limited not by optical resolution, but by noise. Read noise, colour channel imbalance, and demosaicing artefacts often dominate faint extended structures such as galaxy arms and nebulae long before sampling limits are reached.
 
-Conventional RGB workflows demosaic these four values, interpolate missing colour information, and treat the reconstructed RGB pixels as separate spatial entities. This creates interpolation noise, reduces the effective signal-to-noise ratio, and obscures fine structure.
+CFALD addresses this by deliberately trading spatial resolution for signal-to-noise ratio.
 
-CFALD avoids this entirely by extracting luminance directly from the raw CFA values before any demosaicing. The four CFA measurements are averaged to produce a true luminance value representing the single underlying spatial measurement. This luminance is written back into the corresponding 2×2 block, preserving the exact CFA sampling geometry.
+A Bayer CFA records four colour-filtered measurements in each 2×2 RGGB block. Under typical seeing-limited, undersampled DSLR conditions, these samples are highly correlated and dominated by noise rather than independent spatial information.
 
-Because CFALD maintains the original pixel positions, the luminance frames retain the correct spatial sampling pattern used by the sensor. When combined with dithering, drizzle reconstruction can recover subpixel structure from the offsets between frames, producing a luminance image with higher SNR and finer microdetail than any demosaiced RGB luminance can offer.
+Instead of demosaicing these values into RGB pixels and introducing interpolation noise, CFALD simply bins the raw CFA values to form a single luminance measurement per 2×2 block. This increases SNR, smooths DSLR noise, and avoids all demosaic artefacts.
+
+The result is a low-noise luminance image that is not intended to preserve star resolution. Stars lose resolution when binned and are therefore masked out or removed (e.g. with StarNet++). The CFALD luminance is used only for extended structures, where the SNR improvement produces a clear and visible benefit.
+
+CFALD does not perform super-resolution, drizzle, or detail reconstruction. It makes no claim to preserve high spatial frequencies. It is simply a practical luminance-extraction method for noisy DSLR data.
 
 In short:
 
-Nothing is blurred: the CFA block contains one spatial sample.
+Resolution is intentionally reduced
 
-Nothing is lost: all photons contribute to luminance.
+Noise is significantly reduced
 
-Nothing is interpolated: CFALD avoids demosaic noise.
+Demosaic artefacts are avoided
 
-Drizzle recovers detail: because geometry and dithers are preserved.
+Extended structures benefit directly
 
-This combination yields a luminance channel that consistently outperforms conventional RGB-L in sharpness, smoothness, and depth, producing results comparable to a mono sensor at the same resolution.
+Stars are handled separately
+
+For DSLR users struggling with noisy luminance and faint detail, this trade-off is often worthwhile.
